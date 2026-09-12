@@ -8,6 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
+import com.saurav.cinemax.core.common.GenreMapper
 import com.saurav.cinemax.core.common.getTmdbPosterUrl
 import com.saurav.cinemax.databinding.ItemMovieBinding
 import com.saurav.cinemax.domain.model.Movie
@@ -31,7 +32,7 @@ class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(Movi
         holder: MovieViewHolder,
         position: Int
     ) {
-       val movie = getItem(position) ?: return
+        val movie = getItem(position) ?: return
         holder.bind(movie)
     }
 
@@ -40,22 +41,26 @@ class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(Movi
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.ivPoster.load(getTmdbPosterUrl(movie.posterPath))
+            binding.tvTitle.text = movie.title
+            binding.tvRating.text = "★ %.1f".format(movie.rating)
+            binding.tvMeta.text =
+                "${movie.releaseDate.take(4)} · ${GenreMapper.getGenreNames(movie.genreIds)}"
         }
     }
 
-    class MovieDiffCallback : DiffUtil.ItemCallback<Movie>(){
+    class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(
             oldItem: Movie,
             newItem: Movie
         ): Boolean {
-           return oldItem.id == newItem.id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
             oldItem: Movie,
             newItem: Movie
         ): Boolean {
-           return oldItem == newItem
+            return oldItem == newItem
         }
 
     }

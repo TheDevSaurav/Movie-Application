@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -26,24 +29,24 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
 
+            view.updatePadding(top = statusBarHeight)
+            insets
+        }
         binding.movieRecyclerView.adapter = adapter
-        binding.movieRecyclerView.layoutManager =
-            GridLayoutManager(requireContext(), 2)
+        binding.movieRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         observeMovies()
 
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(
-            inflater,
-            container,
-            false
+            inflater, container, false
         )
 
         return binding.root
@@ -58,7 +61,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(
                 Lifecycle.State.STARTED
-            ){
+            ) {
                 viewModel.movies.collect { pagingData ->
                     adapter.submitData(pagingData)
                 }
