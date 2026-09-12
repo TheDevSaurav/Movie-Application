@@ -20,11 +20,6 @@ class MoviePagingSource(
                 apiKey = apiKey,
                 page = page
             )
-
-            Log.d(
-                "CINEMAX_PAGING",
-                "Page $page loaded, movies = ${response.results.size}"
-            )
             val movies = response.results.map { it.toMovie() }
 
             LoadResult.Page(

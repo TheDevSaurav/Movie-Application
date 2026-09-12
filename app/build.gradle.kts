@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+}
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
 }
 
 android {
@@ -28,7 +37,7 @@ android {
         buildConfigField(
             "String",
             "TMDB_API_KEY",
-            "\"${project.properties["TMDB_API_KEY"]}\""
+            "\"${localProperties.getProperty("TMDB_API_KEY", "")}\""
         )
     }
 

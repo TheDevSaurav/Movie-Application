@@ -14,14 +14,6 @@ import com.saurav.cinemax.domain.model.Movie
 
 class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
-    private val movies = mutableListOf<Movie>()
-
-    fun submitList(newMovies: List<Movie>) {
-        movies.clear()
-        movies.addAll(newMovies)
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -40,13 +32,7 @@ class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(Movi
         position: Int
     ) {
        val movie = getItem(position) ?: return
-        Log.d("CINEMAX_MOVIE", "Movie: ${movie.title}")
-        Log.d("CINEMAX_MOVIE", "Poster path: ${movie.posterPath}")
         holder.bind(movie)
-    }
-
-    override fun getItemCount(): Int {
-        return movies.size
     }
 
     class MovieViewHolder(
