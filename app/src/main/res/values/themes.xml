@@ -5,5 +5,13 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Cinemax" parent="Base.Theme.Cinemax" />
+    <style name="Theme.Cinemax" parent="Base.Theme.Cinemax">
+        <item name="android:windowBackground">@drawable/main_window_background</item>
+    </style>
+
+    <style name="Theme.Cinemax.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.Cinemax</item>
+    </style>
 </resources>

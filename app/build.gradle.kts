@@ -76,4 +76,6 @@ dependencies {
     implementation("androidx.paging:paging-runtime:3.3.2")
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation("com.airbnb.android:lottie:6.6.7")
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }
