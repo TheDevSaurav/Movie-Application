@@ -14,7 +14,7 @@ import javax.inject.Inject
 class MovieRepositoryImpl @Inject constructor(
     private val movieApi: MovieApi
 ) : MovieRepository {
-    override fun getMovies(): Flow<PagingData<Movie>> {
+    override fun  getMovies(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,

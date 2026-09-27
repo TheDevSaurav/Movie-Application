@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306201031706",
+    "project_id": "cinemax-ac7b1",
+    "storage_bucket": "cinemax-ac7b1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306201031706:android:0887c9c0e8a68da7520da3",
+        "android_client_info": {
+          "package_name": "com.saurav.cinemax"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5fTrYbyiAq_91DMPVf3yxxDbNXUO5jH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
