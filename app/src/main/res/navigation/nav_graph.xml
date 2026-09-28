@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/mainFragment">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
 
+    <!-- Login -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.saurav.cinemax.presentation.auth.LoginFragment"
+        android:label="Login">
+
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+
+    </fragment>
+
+    <!-- Signup -->
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.saurav.cinemax.presentation.auth.SignupFragment"
+        android:label="Sign Up">
+
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_signupFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+    </fragment>
+
+    <!-- Main -->
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.saurav.cinemax.presentation.main.MainFragment"
         android:label="Cinemax" />
+
 </navigation>

@@ -4,26 +4,24 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.services)
 }
 
 val localProperties = Properties().apply {
-    val file = rootProject.file("local.properties")
-    if (file.exists()) {
-        file.inputStream().use { load(it) }
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use(::load)
     }
 }
 
 android {
     namespace = "com.saurav.cinemax"
+
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
         }
-    }
-    buildFeatures {
-        viewBinding = true
-        buildConfig = true
     }
 
     defaultConfig {
@@ -32,7 +30,6 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
@@ -51,6 +48,13 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        buildConfig = true
+        compose = true
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -58,27 +62,44 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.firebase.bom))
+    implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.paging.common)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.material)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.logging)
+    implementation(libs.lottie)
+    implementation(libs.lottie.compose)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.compose.material.icons.extended)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network)
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("androidx.paging:paging-runtime:3.3.2")
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation("com.airbnb.android:lottie:6.6.7")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation(platform("com.google.firebase:firebase-bom:34.19.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }

@@ -1,6 +1,8 @@
 package com.saurav.cinemax.di
 
+import com.saurav.cinemax.data.repository.FirebaseAuthRepository
 import com.saurav.cinemax.data.repository.MovieRepositoryImpl
+import com.saurav.cinemax.domain.repository.AuthRepository
 import com.saurav.cinemax.domain.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
@@ -16,4 +18,10 @@ abstract class RepositoryModule {
     abstract fun bindMovieRepository(
         movieRepositoryImpl: MovieRepositoryImpl
     ) : MovieRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthRepository(
+        authRepositoryImpl: FirebaseAuthRepository
+    ) : AuthRepository
 }
